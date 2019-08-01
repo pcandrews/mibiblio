@@ -1,0 +1,158 @@
+<?php
+
+	/** 
+	*	Dependecias: 
+	*	Descripcion:
+	*/
+
+	header('Content-Type: text/html; charset=UTF-8'); 
+	ini_set("display_errors", "On");
+	error_reporting(E_ALL | E_STRICT);
+ 	header("Content-Type: text/html; charset=UTF-8");
+ 	date_default_timezone_set('America/Argentina/Tucuman');
+ 	setlocale(LC_ALL, 'es-AR');
+
+ 	//Paths
+	defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+	//defined('SITE_ROOT') ? null : define('SITE_ROOT', DS.'var'.DS.'www'.DS.'mapa3');
+	defined('SITE_ROOT') ? null : define('SITE_ROOT', DS.'home'.DS.'pablo'.DS.'Proyectos'.DS.'Apache'.DS.'MapaAbonados'.DS.'MapaAnterior'.DS.'mapa3');
+	defined('LIB_PATH') ? null : define('LIB_PATH', SITE_ROOT.DS.'assets'.DS.'php');
+	defined('DATA_PATH') ? null : define('DATA_PATH', SITE_ROOT.DS.'assets'.DS.'data');
+	//
+
+	//Clases
+	require_once(LIB_PATH.DS."clases".DS."database.php");
+	require_once(LIB_PATH.DS."clases".DS."ikon.php");
+	require_once(LIB_PATH.DS."clases".DS."ftp.php");
+	require_once(LIB_PATH.DS."clases".DS."archivo.php");
+	require_once(LIB_PATH.DS."clases".DS."arreglo.php");
+	require_once(LIB_PATH.DS."clases".DS."make_mysql_database.php");
+	require_once(LIB_PATH.DS."clases".DS."email.php");
+	require_once(LIB_PATH.DS."clases".DS."log.php");
+	require_once(LIB_PATH.DS."clases".DS."mapa.php");
+	require_once(LIB_PATH.DS."clases".DS."mapa_abonados.php");
+	//
+
+	//Funciones
+	require_once(LIB_PATH.DS."funciones".DS."funciones.php");
+	//
+
+	//Clases añadidas
+	require_once(LIB_PATH.DS."PHPMailer-master".DS."PHPMailerAutoload.php");
+	require_once(LIB_PATH.DS."PHPMailer-master".DS.'class.phpmailer.php');
+	require_once(LIB_PATH.DS."PHPMailer-master".DS."class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
+	//
+
+ 	//Mysql
+	defined ('DB_SERVER') ? null : define("DB_SERVER", "localhost");
+	defined ('DB_USER') ? null : define("DB_USER", "ccc_admin");
+	defined ('DB_PASS') ? null : define("DB_PASS", "sanlorenzo");
+	defined ('DB_USERROOT') ? null : define("DB_USERROOT", "root");
+	defined ('DB_PASSROOT') ? null : define("DB_PASSROOT", "rocky");
+	defined ('DB_CHARSET') ? null : define("DB_CHARSET", "utf8");
+	defined ('DB_COLLATION') ? null : define("DB_COLLATION", "utf8_spanish_ci");
+	//
+
+	//Logging
+	defined ('LOG_ERRORS') ? null : define("LOG_ERRORS", SITE_ROOT.DS.'assets'.DS.'logs'.DS.'errores.log');
+	defined ('LOG_EVENTS') ? null : define("LOG_EVENTS", SITE_ROOT.DS.'assets'.DS.'logs'.DS.'events.log');
+	//
+
+	/** Ikon **/
+	//FTP Ikon
+	defined ('FTP_SERVER') ? null : define("FTP_SERVER", "200.80.44.240");
+	defined ('FTP_USER_NAME') ? null : define("FTP_USER_NAME", "ikon2@macrodatos.com.ar");
+	defined ('FTP_USER_PASS') ? null : define("FTP_USER_PASS", "Ikonccc1");
+	defined ('FTP_SERVER_FILE') ? null : define("FTP_SERVER_FILE", "epg.rar");
+	defined ('FTP_LOCAL_FILE') ? null : define("FTP_LOCAL_FILE", DATA_PATH.DS."epg_local.rar");
+	defined ('FTP_NEW_LOCAL_FILE') ? null : define("FTP_NEW_LOCAL_FILE", DATA_PATH.DS."epg_new_local.rar");
+	//
+
+	//XML Ikon
+	defined ('EPG_XML') ? null : define("EPG_XML", DATA_PATH.DS."epg.xml");
+	//
+
+	//Base de datos, tablas y registros ikon
+	defined ('DB_IKON') ? null : define("DB_IKON", "ikon");
+	defined ('TABLA_EPG_DB_IKON') ? null : define("TABLA_EPG_DB_IKON", "EPG");
+	defined ('TABLA_EXTRA_EPG_DB_IKON') ? null : define("TABLA_EXTRA_EPG_DB_IKON", "Extra_EPG");
+	$registros = "	id INT NOT NULL AUTO_INCREMENT,
+					PRIMARY KEY(id),
+					numeroCanal INT,
+					tituloPrograma VARCHAR(255),
+					fechaEmision DATE NOT NULL DEFAULT '2012/01/01', 
+					horaInicioPrograma TIME NOT NULL DEFAULT '00:00:00',
+					horaFinPrograma TIME NOT NULL DEFAULT '00:00:00',
+					duracionPrograma TIME NOT NULL DEFAULT '00:00:00',
+					generoPrograma VARCHAR(255), 
+					sinopsisPrograma TEXT,
+					uid INT";
+	defined ('RG_EPG') ? null : define("RG_EPG", $registros);
+	$registros = "	id INT NOT NULL AUTO_INCREMENT,
+					PRIMARY KEY(id),
+					numeroCanal INT,
+					nombreCanal VARCHAR(255),
+					webCanal VARCHAR(255), 
+					webProgramacionCanal VARCHAR(255),
+					infoCanal VARCHAR(255)";
+	defined ('RG_EXTRA_EPG') ? null : define("RG_EXTRA_EPG", $registros);
+	//
+	/*****/
+
+	/** Mapa de abonados **/
+	//Base de datos , tablas y registros mapa de abonados
+	DEFINED ('DB_MAPA_ABONADOS') ? NULL : DEFINE("DB_MAPA_ABONADOS", "mapa_abonados");
+	DEFINED ('TABLA_ABONADOS_DB_MAPA_ABONADOS') ? NULL : DEFINE("TABLA_ABONADOS_DB_MAPA_ABONADOS", "abonados");
+	/*$registros = "	id INT NOT NULL AUTO_INCREMENT,
+					PRIMARY KEY(id),
+					usuario INT,
+					exUsuario INT,
+					apellido VARCHAR(255),
+					nombre VARCHAR(255),
+					calle VARCHAR(255),
+					nroCalle INT,
+					direccion VARCHAR(255),
+					municipio VARCHAR(255),
+					zona INT,
+					telefono INT,
+					barrio INT,
+					lat FLOAT,
+					lng FLOAT,
+					tv VARCHAR(255),
+					internet INT,
+					comentarios TEXT";*/
+	$registros = "	id INT NOT NULL AUTO_INCREMENT,
+					PRIMARY KEY(id),
+					lat FLOAT,
+					lng FLOAT,
+					usuario INT,
+					exUsuario INT,
+					apellido VARCHAR(255),
+					nombre VARCHAR(255),
+					calle VARCHAR(255),
+					nroCalle INT,
+					direccion VARCHAR(255),
+					municipio VARCHAR(255),
+					estado INT,
+					internet INT";
+	DEFINED ('RG_ABONADOS') ? NULL : DEFINE("RG_ABONADOS", $registros);
+
+
+	('DB_MAPA_ABONADOS') ? NULL : DEFINE("DB_MAPA_ABONADOS", "mapa_abonados");
+	DEFINED ('TABLA_ABONADOS_DB_MAPA_ABONADOS_MAPA_YB') ? NULL : DEFINE("TABLA_ABONADOS_DB_MAPA_ABONADOS_MAPA_YB", "abonados_mapa_yb");
+	$registros = "	id INT NOT NULL AUTO_INCREMENT,
+					PRIMARY KEY(id),
+					lat FLOAT,
+					lng FLOAT,
+					nombre VARCHAR(255),
+					calle VARCHAR(255),
+					municipio VARCHAR(255),
+					internet INT,
+					estado INT,
+					numero_abonado INT,
+					exnumero_abonado INT";
+	DEFINED ('RG_ABONADOS') ? NULL : DEFINE("RG_ABONADOS", $registros);
+	//
+	/*****/
+
+?>

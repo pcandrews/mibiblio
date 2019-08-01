@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SIS_EventImport_1_0 SYSTEM "SIS_EventImport_1_0.dtd">
+<SIS_EventImport_1_0>
+	<?comvenient.parser CharCoding="ISO8859_15" TimeZone="GMT-3"?>
+	<EventSchedule sService="106" tStart="2014.03.25-00:00:00" tEnd="2014.04.01-23:59:59">
+		<Event uId="1" tBoxStart="2014.03.25-00:00:00" dBoxDur="01:00:00" sTitle="Vivo a la medianoche">
+			<ShortDescriptor sLang="eng" sName="Vivo a la medianoche">Noticias</ShortDescriptor>
+			<ExtendedDescriptor sLang="eng">Las noticias para estar enterados.</ExtendedDescriptor>
+		</Event>
+		<Event uId="2" tBoxStart="2014.03.25-01:00:00" dBoxDur="01:30:00" sTitle="Noticias / Musicales">
+			<ShortDescriptor sLang="eng" sName="Noticias / Musicales"></ShortDescriptor>
+			<ExtendedDescriptor sLang="eng">CCC la TV Digital de Tucumán</ExtendedDescriptor>
+		</Event>
+		<Event uId="136" tBoxStart="2014.04.01-23:30:00" dBoxDur="00:30:00" sTitle="Líderes hoy">
+			<ShortDescriptor sLang="eng" sName="Líderes hoy">Entrevistas</ShortDescriptor>
+			<ExtendedDescriptor sLang="eng">Entrevistas a los que construyen opinión y tendencias.
+Con: Cecilia Luchía Puig.</ExtendedDescriptor>
+		</Event>
+	</EventSchedule>
+</SIS_EventImport_1_0>

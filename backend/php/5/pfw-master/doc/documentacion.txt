@@ -1,0 +1,49 @@
+Instalacion:
+
+Ruta: php/instalacion/
+
+Existen distintos archivos de instalacion.
+
+instalar_app_mapa_abonados.php
+phpinstalar_otro.php
+
+***********************************************************
+
+Archivos:
+
+config.php
+
+Estilo:
+
+Favorecer siempre el idioma castellano.
+Variales: "camelCase".
+Funciones y metodos: "con_guion".
+Clases: "CamelCase", primera letra "Mayuscula".
+Constantes: "MAYUSCULAS".
+Nombres de archivos y directorios: "minusculas" y "con_guion".
+Bases de datos, tablas y registros: "minusculas" y "con_guion".
+
+***********************************************************
+
+Bases de datos:
+
+app_mapa_abonados
+
+Consta de 3 tablas de datos relacionadas:
+
+abonados
+instalaciones
+fotos
+
+
+Configuracion:
+	Existe un archivo de configuracion general: config.php
+	Cada proyecto tiene, ademas, un archivo de configuracion propio: config_nombre_proyecto.php
+
+
+Documentacion:
+	Existe un archivo de documentacion general: documentacion.txt
+	Cada proyecto tiene, ademas, un archivo de documentacion propio: documentacion_proyecto.php
+
+Directorios:
+	En la raiz, existira una carpeta con el nombre del proyecto. Esta carpeta debe contener, idealmente, solo 1 archivo con el nombre del proyecto, y un archivo de documentacion.
