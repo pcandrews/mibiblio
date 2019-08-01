@@ -30,23 +30,22 @@
 	//defined('LIB_PATH') ? null : define('LIB_PATH', SITE_ROOT.DS.'pfw'.DS.'php');
 	//defined('DATA_PATH') ? null : define('DATA_PATH', SITE_ROOT.DS.'pfw'.DS.'data');
 
-
 	//Clases
 	//require_once(LIB_PATH.DS."clases".DS."base_de_datos.php");
 	//require_once(LIB_PATH.DS."clases".DS."directorio.php");
-	//
-
 
 	//Mysql esto fue movido a config del sistema, donde debe estar.
 	//una vez funcione, eliminar de aqui
-	/*defined ('DB_SERVER') ? null : define("DB_SERVER", "localhost");
-	defined ('DB_USER') ? null : define("DB_USER", "ccc_admin");
-	defined ('DB_PASS') ? null : define("DB_PASS", "s@nLorenz0");
-	defined ('DB_NAME') ? null : define("DB_NAME", "ccc");	
-	defined ('DB_USERROOT') ? null : define("DB_USERROOT", "root");
-	defined ('DB_PASSROOT') ? null : define("DB_PASSROOT", "rocky");
-	defined ('DB_CHARSET') ? null : define("DB_CHARSET", "utf8");
-	defined ('DB_COLLATION') ? null : define("DB_COLLATION", "utf8_spanish_ci");*/
-	//
+	/*
+		defined ('DB_SERVER') ? null : define("DB_SERVER", "localhost");
+		defined ('DB_USER') ? null : define("DB_USER", "ccc_admin");
+		defined ('DB_PASS') ? null : define("DB_PASS", "s@nLorenz0");
+		defined ('DB_NAME') ? null : define("DB_NAME", "ccc");	
+		defined ('DB_USERROOT') ? null : define("DB_USERROOT", "root");
+		defined ('DB_PASSROOT') ? null : define("DB_PASSROOT", "rocky");
+		defined ('DB_CHARSET') ? null : define("DB_CHARSET", "utf8");
+		defined ('DB_COLLATION') ? null : define("DB_COLLATION", "utf8_spanish_ci");
+	*/
+
 
 ?>

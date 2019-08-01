@@ -2,7 +2,7 @@
 
 	/* 	
 		Descripcion:
-			Clase para manejo de Bases de Datos. 
+			Clase para el manejo de Bases de Datos. 
 	*/
 	header('Content-Type: text/html; charset=UTF-8');
 	ini_set("display_errors", "On");
@@ -21,14 +21,20 @@
 		public $query_count = 0;
 		
 		public function __construct($dbhost = 'localhost', $dbuser = 'root', $dbpass = '', $dbname = '', $charset = 'utf8') {
-			if($dbname == '') {
+			/*if($dbname == '') {
 				$this->connection = new mysqli($dbhost, $dbuser, $dbpass);
 			}
 			else {
 				$this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-			}
+			}*/
+
+			$this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 			if ($this->connection->connect_errno) {
-				die( "Fallo al conectar a MySQL: (" . $this->connection->connect_errno . ") " . $this->connection->connect_error);
+				//die( "Fallo al conectar a MySQL: (" . $this->connection->connect_errno . ") " . $this->connection->connect_error);
+
+				error_log(date("d/m/Y-G:i") . " - ERROR: Fallo al cerrar la conexión con MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error."\n", 3, LOG_ERRORS);
+				
+				echo log::leer_ultimas_n_lineas(1,LOG_ERRORS);
 			}
 			else {
 				echo "Conexión exitosa <br />";
@@ -41,10 +47,10 @@
 			}
 		}
 
-		/** 
-		 *	PHP cierra todos los archivos y conexiones a bases de datos al final del script. Es una buena practica cerrarlas manualmente, pero no es 
-		 * 	indisispensable.
-		**/
+		/*
+			PHP cierra todos los archivos y conexiones a bases de datos al final del script. Es una buena practica cerrarlas manualmente, pero no es 
+			indisispensable.
+		*/
 		public function cerrar_conexion () {
 			$desconexion = $this->connection->close();
 			if (!$desconexion) {
@@ -56,9 +62,7 @@
 			}
 		}
 
-		/**
-		 *
-		 */
+
 		public function query ($sql) {
 			/*echo $sql;
 			echo "<br />";
@@ -72,9 +76,7 @@
 			return $result;
 		}
 
-		/**
-		 *
-		**/
+
 		private function confirm_query ($result_set) {
 			//echo "entra";
 			if(!$result_set) {
@@ -88,6 +90,11 @@
 				//echo "SQL query confirmado.";
 			}
 		}
+
+
+
+
+		/********************************************************************************/
 
 
 		/**
