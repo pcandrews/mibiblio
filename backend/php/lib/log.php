@@ -8,7 +8,7 @@
 	setlocale(LC_ALL, 'es-AR');
  	
 	// Dependecias
-	require_once("cfg/config_mibiblio.php");
+	require_once(__DIR__."/../cfg/config_mibiblio.php");
 
 	class Log {
 
@@ -16,6 +16,12 @@
 			$filas = file($archivo,FILE_USE_INCLUDE_PATH);
 			$ultimaLinea = $filas[count($filas)-$n];
 			return $ultimaLinea;
+		}
+
+		public static function log_error($error) {
+			error_log(date("d/m/Y-G:i") . " - ERROR: " . $error . "  \n", 3, LOG_ERRORES_PATH . "/logErrores.txt");
+			// seguri desde aqui para hacer la funcion esta
+			
 		}
 	}
 

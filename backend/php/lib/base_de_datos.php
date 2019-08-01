@@ -12,7 +12,7 @@
 	setlocale(LC_ALL, 'es-AR');
 	
 	// Dependecias
-	require_once("cfg/config_mibiblio.php");
+	require_once(__DIR__."/../cfg/config_mibiblio.php");
 
 	class BaseDeDatos {
 
@@ -32,9 +32,11 @@
 			if ($this->connection->connect_errno) {
 				//die( "Fallo al conectar a MySQL: (" . $this->connection->connect_errno . ") " . $this->connection->connect_error);
 
-				error_log(date("d/m/Y-G:i") . " - ERROR: Fallo al cerrar la conexión con MySQL: (" . $this->connection->connect_errno . ") " . $this->connection->connect_error."\n", 3, LOG_ERRORS);
+				error_log(date("d/m/Y-G:i") . " - ERROR: Fallo al conectar a MySQL: (" . $this->connection->connect_errno . ") " . $this->connection->connect_error) . " \n", 3, LOG_ERRORES_PATH . "/logErrores.txt");
 				
 				echo log::leer_ultimas_n_lineas(1,LOG_ERRORS);
+
+				exit(1);
 			}
 			else {
 				echo "Conexión exitosa <br />";

@@ -14,6 +14,8 @@
 	defined('MIBIBLIO_LIB_PATH') ? null : define('MIBIBLIO_LIB_PATH', MIBIBLIO_PATH.DS.'lib');
 	defined('LOG_ERRORES_PATH') ? null : define('LOG_ERRORES_PATH', MIBIBLIO_PATH.DS.'log');
 
+	//definir un camino para el archivo o algo asi
+
 	//Clases
 	require_once(MIBIBLIO_LIB_PATH."/base_de_datos.php");
 	require_once(MIBIBLIO_LIB_PATH."/log.php");
