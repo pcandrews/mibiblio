@@ -10,9 +10,9 @@
  	//Paths
 	defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 	defined('PROYECTOS_PATH') ? null : define('PROYECTOS_PATH', DS.'home'.DS.'pablo'.DS.'Proyectos');
-	defined('MIBIBLIO_PATH') ? null : define('MIBIBLIO_PATH', PROYECTOS_PATH.DS.'config'.DS.'mibiblio'.DS.'backend'.DS.'php');
+	defined('MIBIBLIO_PATH') ? null : define('MIBIBLIO_PATH', PROYECTOS_PATH.DS.'config'.DS.'mibiblio'.DS.'php');
 	defined('MIBIBLIO_LIB_PATH') ? null : define('MIBIBLIO_LIB_PATH', MIBIBLIO_PATH.DS.'lib');
-	defined('LOG_PATH') ? null : define('LOG_PATH', MIBIBLIO_PATH.DS.'log');
+	defined('LOG_PATH') ? null : define('LOG_PATH', MIBIBLIO_PATH.DS.'rec'.DS.'log');
 
 	//definir un camino para el archivo o algo asi
 
