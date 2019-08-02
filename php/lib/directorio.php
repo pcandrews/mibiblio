@@ -1,8 +1,5 @@
 <?php
 
-	/**
-	*/
-
 	header('Content-Type: text/html; charset=UTF-8'); 
 	ini_set("display_errors", "On");
 	error_reporting(E_ALL | E_STRICT);
@@ -10,7 +7,8 @@
 	date_default_timezone_set('America/Argentina/Tucuman');
 	setlocale(LC_ALL, 'es-AR');
 
-	require_once(LIB_PATH.DS."config/config.php");
+	// Dependecias
+	require_once(__DIR__."/../cfg/config_milib.php");
 
 	class Directorio {
 
@@ -19,25 +17,25 @@
 
 		function __construct() {}
 
-		/**
-		*	Lee un directorio completo.
-		* 	Devuelve un array con todas las rutas completas de los los elementos del directorio.
+		/*
+			Lee un directorio completo.
+		 	Devuelve un array con todas las rutas completas de los los elementos del directorio.
 		*/
 		public function leer ($dir, &$results = array()) {
 			
-			/**
-			 *  Estas 3 lineas, hacen lo mismo, comparar cual es mas eficiente de los 2 metodos.
-			 * 	$path = realpath($dir);
-			 * 	foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)) as $filename) {
-			 * 		echo "$filename</br>";
-			 * 	}
-			 */
+			/*
+				Estas 3 lineas, hacen lo mismo, comparar cual es mas eficiente de los 2 metodos.
+			  	$path = realpath($dir);
+			  	foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)) as $filename) {
+			  		echo "$filename</br>";
+			  	}
+			*/
 			
 
-			/**
-			 *	Mas de lo mismo
-			 *
-			 *	$path = realpath(DIR_ORIGEN);
+			/*
+			 	Mas de lo mismo
+			 
+			 	$path = realpath(DIR_ORIGEN);
 
 				$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
 				foreach($objects as $name => $object){
@@ -47,11 +45,7 @@
 				$path = realpath(DIR_ORIGEN);
 
 				This prints a list of all files and directories under $path (including $path ifself). If you want to omit directories, remove the RecursiveIteratorIterator::SELF_FIRST 
-			 *
-			 *
-			 *
-			 * 
-			 */
+			*/
 
 
 			$files = scandir($dir);
@@ -69,15 +63,11 @@
 			return $results;
 		}
 
-		/**
-		 *	Descripcion:
-		 * 		Lee un directorio completo. Devuelve ruta y nombre de todos los directorios.
-		 *  Entradas:
-		 * 		$dir (string). Directorio a leer.
-		 * 	Salida:
-		 * 		Array. Devuelve un array la ruta completa de los elementos "NO directorio" del directorio analizado.
-		 * 	Notas:
-		**/
+		/*
+			Descripcion: Lee un directorio completo. Devuelve ruta y nombre de todos los directorios.
+			Entradas: $dir (string). Directorio a leer.
+			Salida: Array. Devuelve un array la ruta completa de los elementos "NO directorio" del directorio analizado.
+		*/
 		public function leer_solo_directorios ($dir, &$results = array()) {
 			$files = scandir($dir);
 

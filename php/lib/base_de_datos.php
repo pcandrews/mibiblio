@@ -1,8 +1,7 @@
 <?php
 
 	/* 	
-		Descripcion:
-			Clase para el manejo de Bases de Datos. 
+		Descripcion: Clase para el manejo de Bases de Datos. 
 	*/
 	header('Content-Type: text/html; charset=UTF-8');
 	ini_set("display_errors", "On");
@@ -10,87 +9,70 @@
 	header("Content-Type: text/html; charset=UTF-8");
 	date_default_timezone_set('America/Argentina/Tucuman');
 	setlocale(LC_ALL, 'es-AR');
+
+	//mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	
 	// Dependecias
 	require_once(__DIR__."/../cfg/config_milib.php");
 
 	class BaseDeDatos {
 
-		protected $connection;
-		protected $query;
-		public $query_count = 0;
+		protected $conexion;
+		protected $ultimo_query;
+
+		//this->metodo_interno
+		//this->conexion->metodo_externo
 		
 		public function __construct($dbhost = 'localhost', $dbuser = 'root', $dbpass = '', $dbname = '', $charset = 'utf8') {
-			/*if($dbname == '') {
-				$this->connection = new mysqli($dbhost, $dbuser, $dbpass);
-			}
-			else {
-				$this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-			}*/
-
-			$this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-			log::guardar("lalalala");
-			if ($this->connection->connect_errno) {
-				//die( "Fallo al conectar a MySQL: (" . $this->connection->connect_errno . ") " . $this->connection->connect_error);
-
-				log::escribir($this->connection->connect_errno . " - " . $this->connection->connect_error);
-				
-				echo log::leer_ultimas_n_lineas(1,LOG_ERRORS);
-
+			$this->conexion = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+			if ($this->conexion->connect_errno) {
+				log::guardar("Acceso a MySQL negado: '{$this->conexion->connect_errno} - {$this->conexion->connect_error}'");
+				echo "Acceso a MySQL negado: '{$this->conexion->connect_errno} - {$this->conexion->connect_error}'";				
+				//echo log::leer_ultimas_n_lineas(1);
 				exit(1);
 			}
 			else {
-				echo "Conexión exitosa <br />";
-				echo $this->connection->host_info . "<br />";
-				echo $dbname;
-				//$this->magic_quotes_active = get_magic_quotes_gpc();
-				//$this->real_escape_string_exists = function_exists("mysql_real_escape_string");
-				$this->connection->set_charset($charset);
-				//$this->query ("SET NAMES 'UTF8'"); //Este punto es crucial para tener la informacion correctamente codificada en español
+				//echo "Conexión de {$dbuser} a MySQL exitosa.<br />";
+				$this->conexion->set_charset($charset);
 			}
 		}
 
 		/*
-			PHP cierra todos los archivos y conexiones a bases de datos al final del script. Es una buena practica cerrarlas manualmente, pero no es 
-			indisispensable.
+			PHP cierra todos los archivos y conexiones a bases de datos.
+			Es una buena practica, pero no es indispensable.
 		*/
 		public function cerrar_conexion () {
-			$desconexion = $this->connection->close();
+			$desconexion = $this->conexion->close();
 			if (!$desconexion) {
-				error_log(date("d/m/Y-G:i") . " - ERROR: Fallo al cerrar la conexión con MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error."\n", 3, LOG_ERRORS);
-				echo log::leer_ultimas_n_lineas(1,LOG_ERRORS);
+				log::guardar("Desconexion de MySQL negada: '{$this->conexion->connect_errno} - {$this->conexion->connect_error}'");
+				echo "Desconexion de MySQL negada: '{$this->conexion->connect_errno} - {$this->conexion->connect_error}'";				
+				//echo log::leer_ultimas_n_lineas(1);
+				exit(1);
 			}
 			else {
-				echo "Desconexión exitosa <br />";
+				//echo "Desconexión de exitosa.<br />";
 			}
 		}
 
-
-		public function query ($sql) {
-			/*echo $sql;
-			echo "<br />";
-			echo "<br />";
-			echo "<br />";
-			echo "<br />";*/			
-			$this->last_query = $sql;
-			//echo $this->last_query;
-			$result = $this->connection->query($sql);
-			$this->confirm_query($result);
+		public function query ($q) {
+			$this->ultimo_query = $q;
+			$result = $this->conexion->query($q);
+			$this->confirmar_query($result);
 			return $result;
 		}
 
-
-		private function confirm_query ($result_set) {
-			//echo "entra";
-			if(!$result_set) {
-				$output = "<br /><br />";
-				$output .= "Fallo al ejecutar SQL query:" . $this->connection->error;
-				$output .= "<br /><br />";
-				$output .= "Ultimo SQL query: " . $this->last_query; 
-				die($output);
+		private function confirmar_query ($result) {
+			if(!$result) {
+				//log::guardar("Error de sintaxis: {$this->conexion->error}");		
+				log::guardar("Error de sintaxis: '{$this->ultimo_query}'");					
+				echo "Error de sintaxis: '{$this->ultimo_query}'";					
+				//echo log::leer_ultimas_n_lineas(1);
+				echo "<br><br><br><br><br><br>";
+				exit(1);			
 			}
 			else {
-				//echo "SQL query confirmado.";
+				//echo "Query correcto: '{$this->ultimo_query}'";
+				//echo "<br><br><br><br><br><br>";
 			}
 		}
 
@@ -120,7 +102,7 @@
 		 *		Devuelve el contenido de una fila en un array asociativo.
 		**/
 		public function fetch_row_x ($resultado) {
-			$row = $this->connection->fetch_row($resultado);
+			$row = $this->conexion->fetch_row($resultado);
 			return $row;
 		}
 
@@ -131,10 +113,6 @@
 		/***** Depurar lo que esta arriba de la 3 barras *****/
 
 
-		/**
-		 * 	 Metodo de la clase: $this->query
-		 * 	 Metodo externo:  $this->connection->query
-		 */
 		
 
 		/**
@@ -157,7 +135,7 @@
 		 * 	Actualizar: Agregar logging.
 		 */
 		public function fetch_all ($query, $flag=MYSQLI_BOTH) {
-			$resultado = $this->connection->query($query);
+			$resultado = $this->conexion->query($query);
 			$a = $resultado->fetch_all($flag);
 			$resultado->free();
 			return $a;
@@ -168,7 +146,7 @@
 		 *	Arregla problema con caracteres especiales para mysql.
 		 */
 		public function escape_string ($s) {
-			$s = $this->connection->real_escape_string($s);
+			$s = $this->conexion->real_escape_string($s);
 			return $s;
 		}
 
@@ -188,7 +166,7 @@ class db {
 
 	
     public function query($query) {
-		if ($this->query = $this->connection->prepare($query)) {
+		if ($this->query = $this->conexion->prepare($query)) {
             if (func_num_args() > 1) {
                 $x = func_get_args();
                 $args = array_slice($x, 1);
@@ -214,7 +192,7 @@ class db {
            	}
 			$this->query_count++;
         } else {
-            die('Unable to prepare statement (check your syntax) - ' . $this->connection->error);
+            die('Unable to prepare statement (check your syntax) - ' . $this->conexion->error);
         }
 		return $this;
     }
@@ -261,7 +239,7 @@ class db {
 	}
 
 	public function close() {
-		return $this->connection->close();
+		return $this->conexion->close();
 	}
 
 	public function affectedRows() {
@@ -290,20 +268,20 @@ completa
 
 class db {
 
-    protected $connection;
+    protected $conexion;
 	protected $query;
 	public $query_count = 0;
 	
 	public function __construct($dbhost = 'localhost', $dbuser = 'root', $dbpass = '', $dbname = '', $charset = 'utf8') {
-		$this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-		if ($this->connection->connect_error) {
-			die('Failed to connect to MySQL - ' . $this->connection->connect_error);
+		$this->conexion = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+		if ($this->conexion->connect_error) {
+			die('Failed to connect to MySQL - ' . $this->conexion->connect_error);
 		}
-		$this->connection->set_charset($charset);
+		$this->conexion->set_charset($charset);
 	}
 	
     public function query($query) {
-		if ($this->query = $this->connection->prepare($query)) {
+		if ($this->query = $this->conexion->prepare($query)) {
             if (func_num_args() > 1) {
                 $x = func_get_args();
                 $args = array_slice($x, 1);
@@ -329,7 +307,7 @@ class db {
            	}
 			$this->query_count++;
         } else {
-            die('Unable to prepare statement (check your syntax) - ' . $this->connection->error);
+            die('Unable to prepare statement (check your syntax) - ' . $this->conexion->error);
         }
 		return $this;
     }
@@ -376,7 +354,7 @@ class db {
 	}
 
 	public function close() {
-		return $this->connection->close();
+		return $this->conexion->close();
 	}
 
 	public function affectedRows() {
