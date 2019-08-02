@@ -8,7 +8,7 @@
 	setlocale(LC_ALL, 'es-AR');
  	
 	// Dependecias
-	require_once(__DIR__."/../cfg/config_mibiblio.php");
+	require_once(__DIR__."/../cfg/config_milib.php");
 
 	class Log {
 

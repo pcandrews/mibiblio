@@ -12,7 +12,7 @@
 	setlocale(LC_ALL, 'es-AR');
 	
 	// Dependecias
-	require_once(__DIR__."/../cfg/config_mibiblio.php");
+	require_once(__DIR__."/../cfg/config_milib.php");
 
 	class BaseDeDatos {
 
@@ -29,6 +29,7 @@
 			}*/
 
 			$this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+			log::guardar("lalalala");
 			if ($this->connection->connect_errno) {
 				//die( "Fallo al conectar a MySQL: (" . $this->connection->connect_errno . ") " . $this->connection->connect_error);
 
