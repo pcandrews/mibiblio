@@ -32,7 +32,7 @@
 			if ($this->connection->connect_errno) {
 				//die( "Fallo al conectar a MySQL: (" . $this->connection->connect_errno . ") " . $this->connection->connect_error);
 
-				error_log(date("d/m/Y-G:i") . " - ERROR: Fallo al conectar a MySQL: (" . $this->connection->connect_errno . ") " . $this->connection->connect_error) . " \n", 3, LOG_ERRORES_PATH . "/logErrores.txt");
+				log::escribir($this->connection->connect_errno . " - " . $this->connection->connect_error);
 				
 				echo log::leer_ultimas_n_lineas(1,LOG_ERRORS);
 
