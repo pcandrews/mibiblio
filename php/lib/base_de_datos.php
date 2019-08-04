@@ -1,7 +1,7 @@
 <?php
 
 	/* 	
-		Descripcion: Clase para el manejo de Bases de Datos. 
+		Clase para el manejo de Bases de Datos. 
 	*/
 	header('Content-Type: text/html; charset=UTF-8');
 	ini_set("display_errors", "On");
@@ -67,7 +67,7 @@
 				log::guardar("Error de sintaxis: '{$this->ultimo_query}'");					
 				echo "Error de sintaxis: '{$this->ultimo_query}'";					
 				//echo log::leer_ultimas_n_lineas(1);
-				echo "<br><br><br><br><br><br>";
+				//echo "<br><br><br><br><br><br>";
 				exit(1);			
 			}
 			else {
@@ -76,16 +76,26 @@
 			}
 		}
 
+		public function num_rows($q) {
+			$q_res = $this->query($q);		
+			$n_filas = $q_res->num_rows;
+			return $n_filas;
+		}
 
-
+		/*
+			Devuelve la consulta en un array. Solo un elemento.
+		*/
+		public function fetch_array ($q, $flag=MYSQLI_BOTH) {
+			$q_res = $this->query($q);		
+			$resultado = $q_res->fetch_array($flag);
+			return $resultado;
+		}
 
 		/********************************************************************************/
 
-
-		/**
-		 *	Descripcion:
-		 *		Devuelve el contenido de una columna, en un array.
-		**/
+		/*
+	 		Devuelve el contenido de una columna, en un array.
+		*/
 		public function columna_a_array ($col,$tabla) {
 			$consulta = $this->query("SELECT $col FROM $tabla");
 
@@ -96,16 +106,13 @@
 			return $resultado;
 		}
 
-
-		/**
-		 *	Descripcion:
-		 *		Devuelve el contenido de una fila en un array asociativo.
-		**/
+		/*
+			Devuelve el contenido de una fila en un array asociativo.
+		*/
 		public function fetch_row_x ($resultado) {
 			$row = $this->conexion->fetch_row($resultado);
 			return $row;
 		}
-
 		
 		/***************************************************************************************************************/
 		/***************************************************************************************************************/
@@ -115,25 +122,12 @@
 
 		
 
-		/**
-		 * 	Descripcion: Devuelve la consulta en un array. Solo un elemento
-		 * 	Entrada: "$res_query", es resultado de efecturar un query.
-		 * 	Salida:
-		 * 	Notas:
-		 * 	Actualizar: Agregar logging.
-		 */
-		public function fetch_array ($res_query, $flag=MYSQLI_BOTH) {
-			$resultado = $res_query->fetch_array($flag);
-			return $resultado;
-		}
 
 
-		/**
-		 * 	Descripcion: Devuelve TODOS los datos de la consulta en un array.
-		 * 	Salida:
-		 * 	Notas:
-		 * 	Actualizar: Agregar logging.
-		 */
+
+		/*
+			Descripcion: Devuelve TODOS los datos de la consulta en un array.
+		*/
 		public function fetch_all ($query, $flag=MYSQLI_BOTH) {
 			$resultado = $this->conexion->query($query);
 			$a = $resultado->fetch_all($flag);
@@ -142,9 +136,9 @@
 		}
 
 
-		/** 
-		 *	Arregla problema con caracteres especiales para mysql.
-		 */
+		/*
+			Arregla problema con caracteres especiales para mysql.
+		*/
 		public function escape_string ($s) {
 			$s = $this->conexion->real_escape_string($s);
 			return $s;
@@ -233,10 +227,7 @@ class db {
 		return $result;
 	}
 	
-	public function numRows() {
-		$this->query->store_result();
-		return $this->query->num_rows;
-	}
+
 
 	public function close() {
 		return $this->conexion->close();

@@ -64,18 +64,20 @@
 		}
 
 		/*
-			Descripcion: Lee un directorio completo. Devuelve ruta y nombre de todos los directorios.
-			Entradas: $dir (string). Directorio a leer.
-			Salida: Array. Devuelve un array la ruta completa de los elementos "NO directorio" del directorio analizado.
+			Lee un directorio completo. Devuelve ruta y nombre de todos los directorios.
+			Entrada: 
+				$dir (string). Directorio a leer.
+				&$results (array).
+			Salida: $results (array). Devuelve un array la ruta completa de los elementos "NO directorio" del directorio analizado.
 		*/
-		public function leer_solo_directorios ($dir, &$results = array()) {
+		public function listar_directorios ($dir, &$results = array()) {
 			$files = scandir($dir);
 
 			foreach($files as $key => $value){
 				$path = realpath($dir.DIRECTORY_SEPARATOR.$value);
 				if(is_dir($path)) {
 					if($value != "." && $value != "..") {
-						$this->leer_solo_directorios($path, $results);
+						$this->listar_directorios($path, $results);
 						$results[] = $path;
 					}
 				}
@@ -84,17 +86,14 @@
 			return $results;
 		}
 
-
-		/**
-		 *	Descripcion:
-		 * 		Lee un directorio completo. Devuelve ruta y nombre de todos los NO directorios.
-		 * 	Entradas:
-		 *  	$dir (string). Directorio a leer.
-		 * 	Salida:
-		 * 		Array. Devuelve un array la ruta completa de los elementos "NO directorio" del directorio analizado.
-		 * 	Notas:
-		**/
-		public function leer_solo_no_directorios ($dir, &$results = array()) {
+		/*
+			Lee un directorio completo. Devuelve ruta y nombre de todos los NO directorios.
+			Entradas: 
+				$dir (string). Directorio a leer.
+				&$results (array).
+			Salida: $results (array). Devuelve un array la ruta completa de los elementos "NO directorio" del directorio analizado.
+		*/
+		public function listar_archivos ($dir, &$results = array()) {
 			$files = scandir($dir);
 
 			foreach($files as $key => $value){
@@ -103,18 +102,16 @@
 					$results[] = $path;
 				} else if($value != "." && $value != "..") {
 					//$this->leer($path, $results);
-					$this->leer_solo_no_directorios($path, $results);
+					$this->listar_archivos($path, $results);
 					//$results[] = $path;
 				}
 			}
 			return $results;
 		}
 
-		/**
-		 *	Descripcion:
-		 * 		Lista TODOS los no directorios de un directorios, incluidos los que estan dentro de subdirectorios.
-		**/
-
+		/*
+		  	Lista TODOS los no directorios de un directorios, incluidos los que estan dentro de subdirectorios.
+		*/
 		function lista_interativa($dir, &$results = array()) {
 			$files = scandir($dir);
 
