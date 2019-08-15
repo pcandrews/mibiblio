@@ -5,6 +5,7 @@
 	*/
 	header('Content-Type: text/html; charset=UTF-8');
 	ini_set("display_errors", "On");
+	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL | E_STRICT);
 	header("Content-Type: text/html; charset=UTF-8");
 	date_default_timezone_set('America/Argentina/Tucuman');
@@ -64,8 +65,11 @@
 		private function confirmar_query ($result) {
 			if(!$result) {
 				//log::guardar("Error de sintaxis: {$this->conexion->error}");		
-				log::guardar("Error de sintaxis: '{$this->ultimo_query}'");					
-				echo "Error de sintaxis: '{$this->ultimo_query}'";					
+				log::guardar("#{$this->conexion->errno} - {$this->conexion->error}\n");
+				log::guardar("Ultimo query: '{$this->ultimo_query}'");
+				echo "{$this->conexion->errno} - {$this->conexion->error}";
+				echo "<br>";
+				echo "Ultimo query: '{$this->ultimo_query}'";					
 				//echo log::leer_ultimas_n_lineas(1);
 				//echo "<br><br><br><br><br><br>";
 				exit(1);			
@@ -90,6 +94,11 @@
 			$resultado = $q_res->fetch_array($flag);
 			return $resultado;
 		}
+
+		/* seguir aqui */
+		public function last_id() {
+			return $this->conexion->insert_id;
+		} 
 
 		/********************************************************************************/
 

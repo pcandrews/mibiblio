@@ -1,0 +1,63 @@
+2019/08/04-14:41 - Acceso a MySQL negado: '2002 - php_network_getaddresses: getaddrinfo failed: Name or service not known'
+2019/08/04-14:42 - Error de sintaxis: 'LOAD DATA LOCAL INFILE '/home/pablo/Proyectos/ccc/instalador_mapa_abonados/php/uhfapp/csv/MOVIL_128/20161205.csv'
+								INTO TABLE ccc.crudo_uhfapp_temp
+								FIELDS TERMINATED BY '",'
+								LINES TERMINATED BY '\n'
+									(@nombre, 
+									@mac_celular, 
+									@numero_abonado, 
+									@coord_gps_dcml, 
+									@coord_gps_sexa, 
+									@observacion)
+								SET							 
+									nombre_c_uhfapp_t = SUBSTR(TRIM(@nombre), 2),
+									mac_c_uhfapp_t = SUBSTR(TRIM(@mac_celular), 2),
+									n_abonado_c_uhfapp_t = CAST(SUBSTR(TRIM(@numero_abonado), 2) AS UNSIGNED),
+
+									gps_sexa_c_uhfapp_t = SUBSTR(TRIM(@coord_gps_sexa), 2),
+									lat_c_uhfapp_t = CAST(SUBSTRING_INDEX(SUBSTR(TRIM(@coord_gps_dcml), 2), ',', 1) AS DECIMAL(10,6)),
+									lng_c_uhfapp_t  = CAST(SUBSTRING_INDEX(SUBSTR(TRIM(@coord_gps_dcml), 2), ',', -1) AS DECIMAL(10,6)),					
+									gps_dcml_c_uhfapp_t  = ST_GeomFromText(CONCAT('POINT(',REPLACE(SUBSTR(TRIM(@coord_gps_dcml), 2), ',',' '),')')),
+
+									obs_c_uhfapp_t  = SUBSTR(TRIM(@observacion), 2),
+									obs_c_uhfapp_t  = SUBSTRING(obs_c_uhfapp_t , 1, LENGTH(obs_c_uhfapp_t)-1),
+									obs_c_uhfapp_t  = REPLACE(obs_c_uhfapp_t, '\'', '\''),
+									obs_c_uhfapp_t  = REPLACE(obs_c_uhfapp_t, '"', 'º|@#'),
+									obs_c_uhfapp_t  = REPLACE(obs_c_uhfapp_t, 'º|@#', '"'),
+
+									fecha_c_uhfapp_t = '2016-12-05',
+									id_a_uhfapp='1';'
+2019/08/04-14:49 - Error de sintaxis: 'CREATE USER IF NOT EXISTS 'ccc_admin'@'localhost' IDENTIFIED BY 'sanlorenzo';'
+2019/08/04-14:50 - Error de sintaxis: 'CREATE USER IF NOT EXISTS 'ccc_admin'@'localhost' IDENTIFIED BY 'sanlorenzo';'
+2019/08/04-14:50 - Error de sintaxis: 'LOAD DATA LOCAL INFILE '/home/pablo/Proyectos/ccc/instalador_mapa_abonados/php/uhfapp/csv/MOVIL_128/20161205.csv'
+								INTO TABLE ccc.crudo_uhfapp_temp
+								FIELDS TERMINATED BY '",'
+								LINES TERMINATED BY '\n'
+									(@nombre, 
+									@mac_celular, 
+									@numero_abonado, 
+									@coord_gps_dcml, 
+									@coord_gps_sexa, 
+									@observacion)
+								SET							 
+									nombre_c_uhfapp_t = SUBSTR(TRIM(@nombre), 2),
+									mac_c_uhfapp_t = SUBSTR(TRIM(@mac_celular), 2),
+									n_abonado_c_uhfapp_t = CAST(SUBSTR(TRIM(@numero_abonado), 2) AS UNSIGNED),
+
+									gps_sexa_c_uhfapp_t = SUBSTR(TRIM(@coord_gps_sexa), 2),
+									lat_c_uhfapp_t = CAST(SUBSTRING_INDEX(SUBSTR(TRIM(@coord_gps_dcml), 2), ',', 1) AS DECIMAL(10,6)),
+									lng_c_uhfapp_t  = CAST(SUBSTRING_INDEX(SUBSTR(TRIM(@coord_gps_dcml), 2), ',', -1) AS DECIMAL(10,6)),					
+									gps_dcml_c_uhfapp_t  = ST_GeomFromText(CONCAT('POINT(',REPLACE(SUBSTR(TRIM(@coord_gps_dcml), 2), ',',' '),')')),
+
+									obs_c_uhfapp_t  = SUBSTR(TRIM(@observacion), 2),
+									obs_c_uhfapp_t  = SUBSTRING(obs_c_uhfapp_t , 1, LENGTH(obs_c_uhfapp_t)-1),
+									obs_c_uhfapp_t  = REPLACE(obs_c_uhfapp_t, '\'', '\''),
+									obs_c_uhfapp_t  = REPLACE(obs_c_uhfapp_t, '"', 'º|@#'),
+									obs_c_uhfapp_t  = REPLACE(obs_c_uhfapp_t, 'º|@#', '"'),
+
+									fecha_c_uhfapp_t = '2016-12-05',
+									id_a_uhfapp='1';'
+2019/08/04-15:02 - Error de sintaxis: 'CREATE USER IF NOT EXISTS 'ccc_admin'@'localhost' IDENTIFIED BY 'sanlorenzo';'
+2019/08/04-15:39 - Error de sintaxis: '	SELECT DISTINCT numero_abonado
+												FROM ccc.abonados 
+												WHERE numero_abonado = 168680 LIMIT 1;'

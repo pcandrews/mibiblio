@@ -1,0 +1,143 @@
+2019/08/15-10:50 - Error de sintaxis: 'INSERT INTO ccc.direcciones_domicilios (id_d_domicilio, id_persona)
+							VALUES	(NULL,								
+									1);'
+2019/08/15-10:57 - Error de sintaxis: 'INSERT INTO ccc.direcciones_domicilios (id_domicilio, id_persona)
+							VALUES	(NULL,								
+									1);'
+2019/08/15-10:58 - Error de sintaxis: 'SELECT DISTINCT nombre_movil
+											FROM ccc.moviles 
+											WHERE nombre_movil = 'MOVIL_128'
+											LIMIT 1;'
+2019/08/15-11:07 - 1146 - Table 'ccc.moviles' doesn't exist
+2019/08/15-11:07 - Ultimo query: 'SELECT DISTINCT nombre_movil
+											FROM ccc.moviles 
+											WHERE nombre_movil = 'MOVIL_128'
+											LIMIT 1;'
+2019/08/15-11:09 - 1146 - Table 'ccc.moviles' doesn't exist
+
+2019/08/15-11:09 - Ultimo query: 'SELECT DISTINCT nombre_movil
+											FROM ccc.moviles 
+											WHERE nombre_movil = 'MOVIL_128'
+											LIMIT 1;'
+2019/08/15-11:10 - #1054 - Unknown column 'dd.id' in 'field list'
+
+2019/08/15-11:10 - Ultimo query: 'SELECT DISTINCT dd.id domicilio
+													FROM ccc.domicilios dd
+													INNER JOIN abonados a
+													ON dd.id_persona = a.id_persona
+													WHERE a.numero_abonado = 168680'
+2019/08/15-11:12 - #1054 - Unknown column 'd.id' in 'field list'
+
+2019/08/15-11:12 - Ultimo query: 'SELECT DISTINCT d.id domicilio
+													FROM ccc.domicilios d
+													INNER JOIN abonados a
+													ON dd.id_persona = a.id_persona
+													WHERE a.numero_abonado = 168680'
+2019/08/15-11:14 - #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'domicilio, lat_c_gps, lng_c_gps)
+						VALUES(	NULL,
+								,
+								-27.26199' at line 1
+
+2019/08/15-11:14 - Ultimo query: 'INSERT INTO ccc.coordenadas_gps (id_c_gps, id domicilio, lat_c_gps, lng_c_gps)
+						VALUES(	NULL,
+								,
+								-27.261997,
+								-65.548851);'
+2019/08/15-11:17 - #1215 - Cannot add foreign key constraint
+
+2019/08/15-11:17 - Ultimo query: 'CREATE TABLE IF NOT EXISTS ccc.coordenadas_gps (
+		id_c_gps INT(11) UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
+		id_domicilio INT(11) UNSIGNED NOT NULL,
+	
+		lat_c_gps FLOAT(10,6) NULL,
+		lng_c_gps FLOAT(10,6) NULL,
+		
+		PRIMARY KEY(id_c_gps),
+		FOREIGN KEY (id_domicilio) REFERENCES ccc.direcciones_domicilios (id_domicilio) 
+			ON DELETE CASCADE 
+			ON UPDATE CASCADE
+	) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 DEFAULT COLLATE=utf8_spanish_ci;'
+2019/08/15-11:19 - #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'domicilio, lat_c_gps, lng_c_gps)
+						VALUES(	NULL,
+								,
+								-27.26199' at line 1
+
+2019/08/15-11:19 - Ultimo query: 'INSERT INTO ccc.coordenadas_gps (id_c_gps, id domicilio, lat_c_gps, lng_c_gps)
+						VALUES(	NULL,
+								,
+								-27.261997,
+								-65.548851);'
+2019/08/15-11:20 - #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'domicilio, lat_c_gps, lng_c_gps)
+						VALUES(	NULL,
+								1,
+								-27.2619' at line 1
+
+2019/08/15-11:20 - Ultimo query: 'INSERT INTO ccc.coordenadas_gps (id_c_gps, id domicilio, lat_c_gps, lng_c_gps)
+						VALUES(	NULL,
+								1,
+								-27.261997,
+								-65.548851);'
+2019/08/15-11:22 - #1146 - Table 'ccc.instalaciones_servicios' doesn't exist
+
+2019/08/15-11:22 - Ultimo query: 'INSERT INTO ccc.instalaciones_servicios (id_i_servicios, id_domicilio, id_movil, observacion_i_servicios, fecha_i_servicios)
+						VALUES(	NULL, 
+								1,
+								1,
+								'',
+								1480906800);'
+2019/08/15-11:24 - #1215 - Cannot add foreign key constraint
+
+2019/08/15-11:24 - Ultimo query: 'CREATE TABLE IF NOT EXISTS ccc.instalaciones_servicios (
+		id_i_servicios INT(11) UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
+		id_domicilio INT(11) UNSIGNED NOT NULL,
+		id_movil INT(11) UNSIGNED NOT NULL,
+		
+		observacion_i_servicios TEXT, 
+		fecha_i_servicios INT(11) UNSIGNED,
+		
+		PRIMARY KEY(id_i_servicios),
+		FOREIGN KEY (id_domicilio) REFERENCES ccc.direcciones_domicilios (id_domicilio) 
+			ON DELETE CASCADE 
+			ON UPDATE CASCADE,
+		FOREIGN KEY (id_movil) REFERENCES ccc.moviles (id_movil) 
+			ON DELETE CASCADE 
+			ON UPDATE CASCADE
+	) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 DEFAULT COLLATE=utf8_spanish_ci;'
+2019/08/15-12:01 - Acceso a MySQL negado: '2002 - php_network_getaddresses: getaddrinfo failed: Name or service not known'
+2019/08/15-12:03 - #1146 - Table 'ccc.direcciones_domicilios' doesn't exist
+
+2019/08/15-12:03 - Ultimo query: 'SELECT DISTINCT dd.id_d_domicilio
+													FROM ccc.direcciones_domicilios dd
+													INNER JOIN abonados a
+													ON dd.id_persona = a.id_persona
+													WHERE a.numero_abonado = 163817;'
+2019/08/15-12:04 - #1054 - Unknown column 'd.id_d_domicilio' in 'field list'
+
+2019/08/15-12:04 - Ultimo query: 'SELECT DISTINCT d.id_d_domicilio
+													FROM ccc.domicilios dd
+													INNER JOIN abonados a
+													ON d.id_persona = a.id_persona
+													WHERE a.numero_abonado = 163817;'
+2019/08/15-12:04 - #1054 - Unknown column 'd.id_d_domicilio' in 'field list'
+
+2019/08/15-12:04 - Ultimo query: 'SELECT DISTINCT d.id_d_domicilio
+													FROM ccc.domicilios d
+													INNER JOIN abonados a
+													ON d.id_persona = a.id_persona
+													WHERE a.numero_abonado = 163817;'
+2019/08/15-12:05 - #1054 - Unknown column 'd.id_d_domicilio' in 'field list'
+
+2019/08/15-12:05 - Ultimo query: 'SELECT DISTINCT d.id_d_domicilio
+													FROM ccc.domicilios d
+													INNER JOIN abonados a
+													ON d.id_persona = a.id_persona
+													WHERE a.numero_abonado = 163817;'
+2019/08/15-12:49 - #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'MYSQL_CREAR_USUARIO' at line 1
+
+2019/08/15-12:49 - Ultimo query: 'MYSQL_CREAR_USUARIO'
+2019/08/15-12:54 - #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'MYSQL_CREAR_USUARIO' at line 1
+
+2019/08/15-12:54 - Ultimo query: 'MYSQL_CREAR_USUARIO'
+2019/08/15-13:26 - #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'MYSQL_REV_PRIV' at line 1
+
+2019/08/15-13:26 - Ultimo query: 'MYSQL_REV_PRIV'
