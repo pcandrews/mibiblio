@@ -1,0 +1,4 @@
+2019/08/16-20:18 - #1819 - Your password does not satisfy the current policy requirements
+
+2019/08/16-20:18 - Ultimo query: 'CREATE USER IF NOT EXISTS 'ccc_admin'@'localhost' IDENTIFIED BY 'sanlorenzo';'
+2019/08/16-21:11 - Acceso a MySQL negado: '2002 - php_network_getaddresses: getaddrinfo failed: Name or service not known'

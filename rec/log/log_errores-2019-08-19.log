@@ -1,0 +1,74 @@
+2019/08/19-8:25 - #1819 - Your password does not satisfy the current policy requirements
+
+2019/08/19-8:25 - Ultimo query: 'CREATE USER IF NOT EXISTS 'ccc_admin'@'localhost' IDENTIFIED BY 'sanlorenzo';'
+2019/08/19-11:06 - #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FOREIGN KEY (id_c_gps) REFERENCES ccc.coordenadas_gps (id_c_gps) 
+              ' at line 17
+
+2019/08/19-11:06 - Ultimo query: 'CREATE TABLE IF NOT EXISTS ccc.instalaciones (
+                                                                                    id_instalaciones INT(11) UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
+                                                                                    id_domicilio INT(11) UNSIGNED NOT NULL,
+                                                                                    id_movil INT(11) UNSIGNED NOT NULL,
+                                                                                    id_c_gps INT(11) UNSIGNED NOT NULL,
+                                                                                    
+                                                                                    observacion_instalaciones TEXT, 
+                                                                                    fecha_instalaciones INT(11) UNSIGNED,
+                                                                                    
+                                                                                    PRIMARY KEY(id_instalaciones),
+                                                                                    FOREIGN KEY (id_domicilio) REFERENCES ccc.domicilios (id_domicilio) 
+                                                                                        ON DELETE CASCADE 
+                                                                                        ON UPDATE CASCADE,
+                                                                                    FOREIGN KEY (id_movil) REFERENCES ccc.moviles (id_movil) 
+                                                                                        ON DELETE CASCADE 
+                                                                                        ON UPDATE CASCADE
+                                                                                    FOREIGN KEY (id_c_gps) REFERENCES ccc.coordenadas_gps (id_c_gps) 
+                                                                                        ON DELETE CASCADE 
+                                                                                        ON UPDATE CASCADE
+                                                                                ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 DEFAULT COLLATE=utf8_spanish_ci;'
+2019/08/19-11:08 - #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '
+					,
+					'',
+					1480906800)' at line 4
+
+2019/08/19-11:08 - Ultimo query: 'INSERT INTO ccc.instalaciones (id_instalaciones, id_domicilio, id_movil, id_c_gps, observacion_i_servicios, fecha_i_servicios)
+			VALUES(	NULL, 
+					1,
+					,
+					,
+					'',
+					1480906800);'
+2019/08/19-11:09 - #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '
+					1,
+					'',
+					1480906800)' at line 4
+
+2019/08/19-11:09 - Ultimo query: 'INSERT INTO ccc.instalaciones (id_instalaciones, id_domicilio, id_movil, id_c_gps, observacion_i_servicios, fecha_i_servicios)
+			VALUES(	NULL, 
+					1,
+					,
+					1,
+					'',
+					1480906800);'
+2019/08/19-11:10 - #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '
+					1,
+					'',
+					1480906800)' at line 4
+
+2019/08/19-11:10 - Ultimo query: 'INSERT INTO ccc.instalaciones (id_instalaciones, id_domicilio, id_movil, id_c_gps, observacion_i_servicios, fecha_i_servicios)
+			VALUES(	NULL, 
+					1,
+					,
+					1,
+					'',
+					1480906800);'
+2019/08/19-11:12 - #1054 - Unknown column 'observacion_i_servicios' in 'field list'
+
+2019/08/19-11:12 - Ultimo query: 'INSERT INTO ccc.instalaciones (id_instalaciones, id_domicilio, id_movil, id_c_gps, observacion_i_servicios, fecha_i_servicios)
+						VALUES(	NULL, 
+								1,
+								1,
+								1,
+								'',
+								1480906800);'
+2019/08/19-13:31 - #1146 - Table 'ccc.archivos_uhfapp' doesn't exist
+
+2019/08/19-13:31 - Ultimo query: 'SELECT ruta_a_uhfapp FROM ccc.archivos_uhfapp WHERE ruta_a_uhfapp = '/home/pablo/Proyectos/ccc/uhfapp/csv/MOVIL_128/20161205.csv' LIMIT 1'
